@@ -9,10 +9,24 @@ export const Header: React.FC<HeaderProps> = ({ mode = 'love' }) => {
   return (
     <header className="w-full text-center py-6 sm:py-8 px-4">
       {/* Brand Badge */}
-      <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold shadow-sm mb-4 transition-colors duration-300 bg-white/80 border border-pink-200/60 text-pink-700 backdrop-blur-sm">
-        <Sparkles className="w-3.5 h-3.5 text-pink-500 animate-pulse" />
+      <div
+        className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold shadow-sm mb-4 transition-colors duration-300 backdrop-blur-sm ${
+          mode === 'love'
+            ? 'bg-white/80 border border-pink-200/60 text-pink-700'
+            : 'bg-white/80 border border-indigo-200/60 text-indigo-700'
+        }`}
+      >
+        <Sparkles
+          className={`w-3.5 h-3.5 animate-pulse ${
+            mode === 'love' ? 'text-pink-500' : 'text-indigo-500'
+          }`}
+        />
         <span>16 x 16 정밀 매트릭스 256 케미 분석</span>
-        <span className="w-1 h-1 rounded-full bg-pink-400" />
+        <span
+          className={`w-1 h-1 rounded-full ${
+            mode === 'love' ? 'bg-pink-400' : 'bg-indigo-400'
+          }`}
+        />
         <span className="text-gray-500 font-normal">
           {mode === 'love' ? '연인 케미 모드' : '친구·동료 모드'}
         </span>
@@ -20,7 +34,13 @@ export const Header: React.FC<HeaderProps> = ({ mode = 'love' }) => {
 
       {/* Main Headline */}
       <div className="flex items-center justify-center gap-2 sm:gap-3 mb-2">
-        <div className="p-2 sm:p-2.5 rounded-2xl bg-gradient-to-tr from-pink-500 to-rose-400 text-white shadow-md shadow-pink-200">
+        <div
+          className={`p-2 sm:p-2.5 rounded-2xl text-white shadow-md ${
+            mode === 'love'
+              ? 'bg-gradient-to-tr from-pink-500 to-rose-400 shadow-pink-200'
+              : 'bg-gradient-to-tr from-indigo-500 to-blue-500 shadow-indigo-200'
+          }`}
+        >
           {mode === 'love' ? (
             <Heart className="w-6 h-6 sm:w-7 sm:h-7 fill-white/90" />
           ) : (
