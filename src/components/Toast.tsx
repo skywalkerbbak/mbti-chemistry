@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { CheckCircle2, X } from 'lucide-react';
 
 export interface ToastProps {
@@ -8,15 +8,20 @@ export interface ToastProps {
 }
 
 export const Toast: React.FC<ToastProps> = ({ message, onClose, duration = 3000 }) => {
+  const savedOnClose = useRef(onClose);
+  useEffect(() => {
+    savedOnClose.current = onClose;
+  }, [onClose]);
+
   useEffect(() => {
     if (!message) return;
 
     const timer = setTimeout(() => {
-      onClose();
+      savedOnClose.current();
     }, duration);
 
     return () => clearTimeout(timer);
-  }, [message, duration, onClose]);
+  }, [message, duration]);
 
   if (!message) return null;
 

@@ -51,10 +51,8 @@ describe('imageExporter utility', () => {
       const el = originalCreateElement(tagName);
       if (tagName === 'a') {
         const anchor = el as HTMLAnchorElement;
-        const originalClick = anchor.click.bind(anchor);
         anchor.click = () => {
           createdDownload = anchor.download;
-          originalClick();
         };
       }
       return el;
