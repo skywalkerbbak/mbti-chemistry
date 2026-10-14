@@ -47,7 +47,13 @@ export const Header: React.FC<HeaderProps> = ({ mode = 'love' }) => {
             <Users className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
           )}
         </div>
-        <h1 className="text-2xl sm:text-4xl font-black tracking-tight bg-gradient-to-r from-pink-600 via-rose-500 to-indigo-600 bg-clip-text text-transparent">
+        <h1
+          className={`text-2xl sm:text-4xl font-black tracking-tight bg-gradient-to-r ${
+            mode === 'friend'
+              ? 'from-indigo-600 via-blue-600 to-teal-600'
+              : 'from-pink-600 via-rose-500 to-indigo-600'
+          } bg-clip-text text-transparent`}
+        >
           MBTI 케미스트리
         </h1>
       </div>

@@ -64,6 +64,7 @@ export const App: React.FC = () => {
   const [step, setStep] = useState<'input' | 'result'>(initial.step);
   const [isDownloading, setIsDownloading] = useState<boolean>(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [toastType, setToastType] = useState<'success' | 'error'>('success');
   const [quickViewMbti, setQuickViewMbti] = useState<MBTICode | null>(null);
 
   const cardRef = useRef<HTMLDivElement>(null);
@@ -136,14 +137,25 @@ export const App: React.FC = () => {
       } else {
         const textArea = document.createElement('textarea');
         textArea.value = shareUrl;
+        textArea.style.position = 'fixed';
+        textArea.style.left = '-9999px';
+        textArea.style.top = '0';
         document.body.appendChild(textArea);
-        textArea.select();
-        document.execCommand('copy');
-        document.body.removeChild(textArea);
+        try {
+          textArea.select();
+          const successful = document.execCommand('copy');
+          if (!successful) {
+            throw new Error('execCommand copy failed');
+          }
+        } finally {
+          document.body.removeChild(textArea);
+        }
       }
+      setToastType('success');
       setToastMessage('결과 링크가 복사되었습니다! 친구에게 공유해보세요 💌');
     } catch {
-      setToastMessage('결과 링크가 복사되었습니다! 친구에게 공유해보세요 💌');
+      setToastType('error');
+      setToastMessage('클립보드 복사에 실패했습니다. 브라우저 주소창의 링크를 복사해주세요.');
     }
   };
 
@@ -154,12 +166,15 @@ export const App: React.FC = () => {
       const filename = `${myMbti || 'MBTI'}_${partnerMbti || 'MBTI'}_케미카드.png`;
       const success = await downloadElementAsImage(cardRef.current, filename);
       if (success) {
+        setToastType('success');
         setToastMessage('스토리 카드 이미지가 저장되었습니다! 📸');
       } else {
+        setToastType('error');
         setToastMessage('이미지 저장에 실패했습니다. 다시 시도해주세요.');
       }
     } catch (error) {
       console.error('Failed to download image:', error);
+      setToastType('error');
       setToastMessage('이미지 저장 중 오류가 발생했습니다.');
     } finally {
       setIsDownloading(false);
@@ -231,7 +246,11 @@ export const App: React.FC = () => {
         />
       )}
 
-      <Toast message={toastMessage} onClose={() => setToastMessage(null)} />
+      <Toast
+        message={toastMessage}
+        type={toastType}
+        onClose={() => setToastMessage(null)}
+      />
     </div>
   );
 };

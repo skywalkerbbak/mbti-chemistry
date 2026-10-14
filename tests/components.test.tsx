@@ -54,6 +54,20 @@ describe('Task 3: Selection & Interaction Components', () => {
       expect(container.textContent).toContain('친구·동료 모드');
       expect(container.textContent).toContain('소통 궁합');
     });
+
+    it('should switch headline gradient depending on mode', () => {
+      act(() => {
+        root.render(<Header mode="friend" />);
+      });
+      const h1Friend = container.querySelector('h1');
+      expect(h1Friend?.className).toContain('from-indigo-600 via-blue-600 to-teal-600');
+
+      act(() => {
+        root.render(<Header mode="love" />);
+      });
+      const h1Love = container.querySelector('h1');
+      expect(h1Love?.className).toContain('from-pink-600 via-rose-500 to-indigo-600');
+    });
   });
 
   describe('MatchSelector Component', () => {

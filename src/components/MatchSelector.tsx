@@ -160,7 +160,7 @@ export const MatchSelector: React.FC<MatchSelectorProps> = ({
   return (
     <div className="w-full max-w-3xl mx-auto space-y-6">
       {/* 1. Mode Switcher */}
-      <div className="bg-white p-2 rounded-2xl shadow-xs border border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-2">
+      <div className="bg-white p-2 rounded-2xl shadow-sm border border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-2">
         <div className="grid grid-cols-2 p-1 bg-gray-100/80 rounded-xl w-full sm:w-auto">
           <button
             type="button"
@@ -198,7 +198,7 @@ export const MatchSelector: React.FC<MatchSelectorProps> = ({
       </div>
 
       {/* 2. Names & Quick Swap */}
-      <div className="bg-white p-4 sm:p-5 rounded-2xl shadow-xs border border-gray-100 space-y-4">
+      <div className="bg-white p-4 sm:p-5 rounded-2xl shadow-sm border border-gray-100 space-y-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 relative">
           <div>
             <label
@@ -295,7 +295,7 @@ export const MatchSelector: React.FC<MatchSelectorProps> = ({
       </div>
 
       {/* 3. MBTI Selector Grid with Tabs */}
-      <div className="bg-white p-4 sm:p-6 rounded-2xl shadow-xs border border-gray-100 space-y-5">
+      <div className="bg-white p-4 sm:p-6 rounded-2xl shadow-sm border border-gray-100 space-y-5">
         {/* Step Header & Side Switcher */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-gray-100 pb-4">
           <div>
@@ -316,7 +316,7 @@ export const MatchSelector: React.FC<MatchSelectorProps> = ({
               data-testid="tab-my-mbti"
               className={`py-1.5 px-3 rounded-lg transition-all flex items-center justify-center gap-1.5 ${
                 activeTab === 'my'
-                  ? 'bg-white text-pink-600 shadow-xs'
+                  ? 'bg-white text-pink-600 shadow-sm'
                   : 'text-gray-500 hover:text-gray-900'
               }`}
             >
@@ -333,7 +333,7 @@ export const MatchSelector: React.FC<MatchSelectorProps> = ({
               data-testid="tab-partner-mbti"
               className={`py-1.5 px-3 rounded-lg transition-all flex items-center justify-center gap-1.5 ${
                 activeTab === 'partner'
-                  ? 'bg-white text-indigo-600 shadow-xs'
+                  ? 'bg-white text-indigo-600 shadow-sm'
                   : 'text-gray-500 hover:text-gray-900'
               }`}
             >

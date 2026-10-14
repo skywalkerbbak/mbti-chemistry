@@ -158,4 +158,20 @@ describe('Toast Component', () => {
       expect(onClose).toHaveBeenCalledTimes(1);
     }
   });
+
+  it('should render success icon by default and error icon when type="error"', () => {
+    act(() => {
+      root.render(<Toast message="성공 메시지" onClose={vi.fn()} />);
+    });
+    // Check emerald text class for success CheckCircle2
+    expect(container.querySelector('.text-emerald-400')).toBeTruthy();
+    expect(container.querySelector('.text-rose-400')).toBeNull();
+
+    act(() => {
+      root.render(<Toast message="에러 메시지" type="error" onClose={vi.fn()} />);
+    });
+    // Check rose text class for error AlertCircle
+    expect(container.querySelector('.text-rose-400')).toBeTruthy();
+    expect(container.querySelector('.text-emerald-400')).toBeNull();
+  });
 });

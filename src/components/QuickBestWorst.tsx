@@ -56,7 +56,7 @@ export const QuickBestWorst: React.FC<QuickBestWorstProps> = ({
         <div className="flex items-start justify-between gap-2">
           <div className="flex items-center gap-2">
             <span
-              className={`w-6 h-6 flex items-center justify-center rounded-full text-xs font-bold text-white shadow-xs ${
+              className={`w-6 h-6 flex items-center justify-center rounded-full text-xs font-bold text-white shadow-sm ${
                 isBest
                   ? rank === 1
                     ? 'bg-rose-500 ring-2 ring-rose-200'
@@ -108,8 +108,8 @@ export const QuickBestWorst: React.FC<QuickBestWorstProps> = ({
           onClick={() => handleSelect(item.mbti)}
           className={`w-full py-1.5 px-3 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors ${
             isBest
-              ? 'bg-rose-500 hover:bg-rose-600 text-white shadow-xs'
-              : 'bg-amber-600 hover:bg-amber-700 text-white shadow-xs'
+              ? 'bg-rose-500 hover:bg-rose-600 text-white shadow-sm'
+              : 'bg-amber-600 hover:bg-amber-700 text-white shadow-sm'
           }`}
           data-testid={`select-partner-btn-${item.mbti}`}
         >
@@ -125,7 +125,7 @@ export const QuickBestWorst: React.FC<QuickBestWorstProps> = ({
       role="dialog"
       aria-modal="true"
       aria-labelledby="quick-modal-title"
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs animate-in fade-in duration-200"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-in fade-in duration-200"
       onClick={onClose}
     >
       <div
@@ -135,7 +135,7 @@ export const QuickBestWorst: React.FC<QuickBestWorstProps> = ({
         {/* Modal Header */}
         <div className="p-4 sm:p-5 border-b border-gray-100 flex items-center justify-between bg-gradient-to-r from-pink-50/70 via-white to-indigo-50/70">
           <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-pink-500 to-indigo-500 text-white flex items-center justify-center shadow-xs">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-pink-500 to-indigo-500 text-white flex items-center justify-center shadow-sm">
               <Sparkles className="w-5 h-5" />
             </div>
             <div>

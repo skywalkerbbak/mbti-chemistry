@@ -160,4 +160,70 @@ describe('Task 5: App Integration & URL Parameter Deep Linking', () => {
     expect(reportCard).toBeTruthy();
     expect(container.textContent).toContain('친구·동료 케미 리포트');
   });
+
+  it('7. should show failure toast when clipboard writeText rejects', async () => {
+    window.history.pushState(null, '', '/?m1=INFP&m2=ENFJ&mode=love');
+
+    const writeTextMock = vi.fn().mockRejectedValue(new Error('Permission denied'));
+    Object.assign(navigator, {
+      clipboard: {
+        writeText: writeTextMock,
+      },
+    });
+
+    act(() => {
+      root.render(<App />);
+    });
+
+    const copyBtn = container.querySelector('[data-testid="copy-link-btn"]') as HTMLButtonElement;
+    await act(async () => {
+      copyBtn.click();
+    });
+
+    expect(container.textContent).toContain('클립보드 복사에 실패했습니다. 브라우저 주소창의 링크를 복사해주세요.');
+  });
+
+  it('8. should fallback to textarea execCommand when navigator.clipboard is undefined', async () => {
+    window.history.pushState(null, '', '/?m1=INFP&m2=ENFJ&mode=love');
+
+    Object.assign(navigator, {
+      clipboard: undefined,
+    });
+    const execCommandMock = vi.fn().mockReturnValue(true);
+    document.execCommand = execCommandMock;
+
+    act(() => {
+      root.render(<App />);
+    });
+
+    const copyBtn = container.querySelector('[data-testid="copy-link-btn"]') as HTMLButtonElement;
+    await act(async () => {
+      copyBtn.click();
+    });
+
+    expect(execCommandMock).toHaveBeenCalledWith('copy');
+    expect(container.textContent).toContain('결과 링크가 복사되었습니다! 친구에게 공유해보세요 💌');
+  });
+
+  it('9. should show failure toast when fallback execCommand returns false', async () => {
+    window.history.pushState(null, '', '/?m1=INFP&m2=ENFJ&mode=love');
+
+    Object.assign(navigator, {
+      clipboard: undefined,
+    });
+    const execCommandMock = vi.fn().mockReturnValue(false);
+    document.execCommand = execCommandMock;
+
+    act(() => {
+      root.render(<App />);
+    });
+
+    const copyBtn = container.querySelector('[data-testid="copy-link-btn"]') as HTMLButtonElement;
+    await act(async () => {
+      copyBtn.click();
+    });
+
+    expect(execCommandMock).toHaveBeenCalledWith('copy');
+    expect(container.textContent).toContain('클립보드 복사에 실패했습니다. 브라우저 주소창의 링크를 복사해주세요.');
+  });
 });
